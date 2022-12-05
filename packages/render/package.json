@@ -1,0 +1,27 @@
+{
+  "name": "@async-to-html/render",
+  "version": "0.0.1",
+  "description": "Generic render method, renderers, matchers and html safe methods",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/handijk/async-to-html.git"
+  },
+  "exports": {
+    "./*": "./src/*"
+  },
+  "keywords": [
+    "render",
+    "match",
+    "htmlSafe"
+  ],
+  "author": "Han Dijk <info@handijk.nl>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/handijk/async-to-html/issues"
+  },
+  "homepage": "https://github.com/handijk/async-to-html#readme",
+  "dependencies": {
+    "@async-to-html/abort-async": "^0.0.1"
+  }
+}

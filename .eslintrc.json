@@ -1,0 +1,46 @@
+{
+  "ignorePatterns": ["dist", "node_modules", "coverage"],
+  "env": {
+    "es2021": true,
+    "shared-node-browser": true
+  },
+  "plugins": ["vitest"],
+  "extends": [
+    "eslint:recommended",
+    "prettier",
+    "plugin:import/recommended",
+    "plugin:workspaces/recommended",
+    "plugin:promise/recommended"
+  ],
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2021
+  },
+  "settings": {
+    "import/resolver": {
+      "exports": {},
+      "node": {}
+    }
+  },
+  "rules": {
+    "require-await": "error",
+    "require-yield": "error",
+    "no-return-await": "error",
+    "no-unused-vars": [
+      "error",
+      {
+        "args": "all",
+        "caughtErrors": "all",
+        "ignoreRestSiblings": false,
+        "argsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "vars": "all"
+      }
+    ],
+    "vitest/max-nested-describe": "error",
+    "vitest/no-focused-tests": "error",
+    "vitest/no-identical-title": "error",
+    "vitest/no-skipped-tests": "error"
+  }
+}

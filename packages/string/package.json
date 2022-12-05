@@ -1,0 +1,32 @@
+{
+  "name": "@async-to-html/string",
+  "version": "0.0.1",
+  "description": "Turn every (async or sync) value into a html string",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/handijk/async-to-html.git"
+  },
+  "exports": {
+    "./*": "./src/*"
+  },
+  "keywords": [
+    "async",
+    "async-iterable",
+    "promise",
+    "string"
+  ],
+  "author": "Han Dijk <info@handijk.nl>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/handijk/async-to-html/issues"
+  },
+  "homepage": "https://github.com/handijk/async-to-html#readme",
+  "peerDependencies": {
+    "html-entities": "^2.3.3"
+  },
+  "dependencies": {
+    "@async-to-html/render": "^0.0.1",
+    "@async-to-html/abort-async": "^0.0.1"
+  }
+}

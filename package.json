@@ -1,0 +1,51 @@
+{
+  "name": "async-to-html",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "version": "0.0.1",
+  "description": "Turn every (async or sync) value into a html string or dom tree",
+  "type": "module",
+  "scripts": {
+    "format": "prettier --check \"**/*.js\"",
+    "format:fix": "prettier --write \"**/*.js\"",
+    "lint": "eslint {/**/,/}*.js",
+    "lint:fix": "eslint --fix {/**/,/}*.js",
+    "test": "vitest",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/handijk/async-to-html.git"
+  },
+  "keywords": [
+    "async",
+    "async-iterable",
+    "javascript",
+    "html",
+    "string",
+    "dom"
+  ],
+  "author": "Han Dijk <info@handijk.nl>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/handijk/async-to-html/issues"
+  },
+  "homepage": "https://github.com/handijk/async-to-html#readme",
+  "devDependencies": {
+    "@vitest/coverage-c8": "^0.25.2",
+    "eslint": "^8.21.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-exports": "^1.0.0-beta.3",
+    "eslint-import-resolver-node": "^0.3.6",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-vitest": "^0.0.20",
+    "eslint-plugin-workspaces": "^0.7.0",
+    "husky": "^8.0.1",
+    "jest-environment-jsdom": "^29.0.2",
+    "prettier": "^2.7.1",
+    "vitest": "^0.25.2"
+  }
+}

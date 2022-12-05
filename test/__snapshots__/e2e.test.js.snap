@@ -1,0 +1,137 @@
+// Vitest Snapshot v1
+
+exports[`e2e > test: html, createElement, string render, dom render > aborted signal 1`] = `"<div></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > aborted signal 2`] = `"<div></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > aborted signal 3`] = `"<div></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > aborted signal 4`] = `"<div></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > array attribute value 1`] = `"<div title=\\"henk en bert\\"></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > array attribute value 2`] = `"<div title=\\"henk en bert\\"></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > async iterator 1`] = `"<div>henk en bert</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > async iterator 2`] = `"<div>henk en bert</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > canceled async iterator 1`] = `"<div>wie zijn de beste</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > canceled async iterator 2`] = `"<div>wie zijn de beste</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > comment node 1`] = `"<div><!--bert en henk--></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > comment node 2`] = `"<div><!--bert en henk--></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > complex tree 1`] = `""`;
+
+exports[`e2e > test: html, createElement, string render, dom render > complex tree 2`] = `"<div>bert en henk <!--async iterable placeholder before--><!--async iterable placeholder after--> <!--promise placeholder--></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > complex tree 3`] = `"<div>bert en henk <!--async iterable placeholder before-->garrus en barry<!--async iterable placeholder after--> met hagelslag</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > complex tree 4`] = `"<div>bert en henk <!--async iterable placeholder before-->eten<!--async iterable placeholder after--> met hagelslag</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > complex tree 5`] = `"<div>bert en henk <!--async iterable placeholder before--><!--async iterable placeholder before--><!--async iterable placeholder after--> <!--async iterable placeholder before--><!--async iterable placeholder after--><!--async iterable placeholder after--> met hagelslag</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > complex tree 6`] = `"<div>bert en henk <!--async iterable placeholder before--><!--async iterable placeholder before-->een<!--async iterable placeholder after--> <!--async iterable placeholder before-->boterham<!--async iterable placeholder after--><!--async iterable placeholder after--> met hagelslag</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > complex tree 7`] = `"<div>bert en henk <!--async iterable placeholder before--><!--async iterable placeholder before-->twee<!--async iterable placeholder after--> <!--async iterable placeholder before-->muizen<!--async iterable placeholder after--><!--async iterable placeholder after--> met hagelslag</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > complex tree 8`] = `"<div>bert en henk drie kikkers met hagelslag</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > complex tree 9`] = `"<div>bert en henk drie kikkers met hagelslag</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > createElement dom child 1`] = `"<div><span></span></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > createElement dom child 2`] = `"<div><span></span></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > createElement string child 1`] = `"<div><span></span></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > createElement string child 2`] = `"<div><span></span></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > document fragment 1`] = `"<div>henk en bert<!--henk en bert--><span></span></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > document fragment 2`] = `"<div>henk en bert<!--henk en bert--><span></span></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > element 1`] = `"<div><span></span></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > element 2`] = `"<div><span></span></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > empty 1`] = `"<div></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > empty 2`] = `"<div></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > empty attribute value 1`] = `"<div title=\\"\\"></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > empty attribute value 2`] = `"<div title=\\"\\"></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > html dom child 1`] = `"<div><span></span></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > html dom child 2`] = `"<div><span></span></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > html string child 1`] = `"<div><span></span></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > html string child 2`] = `"<div><span></span></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > iterable 1`] = `"<div>bert en henk</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > iterable 2`] = `"<div>bert en henk</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > method 1`] = `"<div>henk en bert</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > method 2`] = `"<div>henk en bert</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > multi part string directives 1`] = `"<div title=\\"henk en bert\\" data-test=\\"graddus en harry\\"></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > multiple string attribute name 1`] = `"<div data-henk-en-bert=\\"test\\"></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > multiple string attribute value 1`] = `"<div title=\\"henk en bert\\"></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > multiple string attribute value 2`] = `"<div title=\\"henk en bert\\"></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > multiple string attribute values 1`] = `"<div title=\\"henk en bert\\" data-test=\\"gradus en harry\\"></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > multiple string attribute values 2`] = `"<div title=\\"henk en bert\\" data-test=\\"gradus en harry\\"></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > multiple string directives 1`] = `"<div title=\\"henk en bert\\" data-test=\\"graddus en harry\\"></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > multiple strings 1`] = `"<div>henk en bertgraddus en harry</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > multiple strings 2`] = `"<div>henk en bertgraddus en harry</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > nested array attribute value 1`] = `"<div title=\\"henk en bert\\"></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > nested array attribute value 2`] = `"<div title=\\"henk en bert\\"></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > promise 1`] = `"<div>henk en bert</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > promise 2`] = `"<div>henk en bert</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > promise attribute value 1`] = `"<div title=\\"henk en bert\\"></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > promise attribute value 2`] = `"<div title=\\"henk en bert\\"></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > safe string 1`] = `"<div><span>henk en bert</span></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > safe string 2`] = `"<div><span>henk en bert</span></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > string 1`] = `"<div>henk en bert</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > string 2`] = `"<div>henk en bert</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > string attribute name and value 1`] = `"<div data-henk=\\"bert\\"></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > string attribute value 1`] = `"<div title=\\"henk en bert\\"></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > string attribute value 2`] = `"<div title=\\"henk en bert\\"></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > string directive 1`] = `"<div title=\\"henk en bert\\"></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > text node 1`] = `"<div>bert en henk</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > text node 2`] = `"<div>bert en henk</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > unsafe string 1`] = `"<div>&lt;span&gt;henk en bert&lt;/span&gt;</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > unsafe string 2`] = `"<div>&lt;span&gt;henk en bert&lt;/span&gt;</div>"`;

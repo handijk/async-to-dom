@@ -1,0 +1,27 @@
+{
+  "name": "@async-to-html/abort-async",
+  "version": "0.0.1",
+  "description": "Abort promises and async iterables",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/handijk/async-to-html.git"
+  },
+  "exports": {
+    "./*": "./src/*"
+  },
+  "keywords": [
+    "async",
+    "async-iterable",
+    "promise",
+    "abort",
+    "abortcontroller",
+    "abortsignal"
+  ],
+  "author": "Han Dijk <info@handijk.nl>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/handijk/async-to-html/issues"
+  },
+  "homepage": "https://github.com/handijk/async-to-html#readme"
+}
