@@ -30,7 +30,7 @@ export const createAbortableAsyncIterable = async function* ({
         hasReturned = true;
         return {
           result: result.value,
-          signal: abortController?.signal ?? null,
+          signal: abortController?.signal ?? signal,
         };
       }
       if (abortController) {
