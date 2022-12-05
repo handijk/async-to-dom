@@ -1,6 +1,6 @@
 {
   "name": "@async-to-html/render",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Generic render method, renderers, matchers and html safe methods",
   "type": "module",
   "repository": {
@@ -22,6 +22,6 @@
   },
   "homepage": "https://github.com/handijk/async-to-html#readme",
   "dependencies": {
-    "@async-to-html/abort-async": "^0.0.1"
+    "@async-to-html/abort-async": "^0.0.2"
   }
 }
