@@ -9,7 +9,7 @@ const returnUntilDone = async (item) => {
 export const createAbortableAsyncIterable = async function* ({
   asyncIterable,
   signal = null,
-}) {
+} = {}) {
   const asyncIterator = asyncIterable[Symbol.asyncIterator]();
   let hasReturned = false;
   let abortController = null;

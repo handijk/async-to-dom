@@ -4,7 +4,7 @@
   "workspaces": [
     "packages/*"
   ],
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Turn every (async or sync) value into a html string or dom tree",
   "type": "module",
   "scripts": {
