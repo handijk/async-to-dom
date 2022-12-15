@@ -7,4 +7,4 @@ export const safeHtml = (string) => ({
 
 export const getSafeString = (safeString) => safeString[safeHtmlSymbol];
 
-export const isSafeHtml = (safeHtml) => !!safeHtml?.[safeHtmlSymbol];
+export const isSafeHtml = (safe) => !!safe?.[safeHtmlSymbol];

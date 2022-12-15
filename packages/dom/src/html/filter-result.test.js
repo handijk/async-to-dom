@@ -17,4 +17,8 @@ describe('filter result', () => {
     const item = Symbol();
     expect(filterResult([item, ''])).toEqual(item);
   });
+
+  test('no items in the result will return null', () => {
+    expect(filterResult([])).toEqual(null);
+  });
 });

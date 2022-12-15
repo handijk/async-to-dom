@@ -9,7 +9,7 @@ import { isSafeHtml } from '@async-to-html/render/safe-html/safe-html.js';
 import { renderPromiseFactory } from '@async-to-html/render/renderers/render-promise-factory.js';
 import { renderFunctionFactory } from '@async-to-html/render/renderers/render-function-factory.js';
 import { renderHtmlSafeStringFactory } from '@async-to-html/render/renderers/render-html-safe-string-factory.js';
-import { renderAsyncIteratorFactory } from './render-async-iterator-factory.js';
+import { renderAsyncIteratorFactory } from '@async-to-html/render/renderers/render-async-iterator-factory.js';
 import { renderElementFactory } from './render-element-factory.js';
 import { renderIterableFactory } from './render-iterable-factory.js';
 import { renderStringFactory } from './render-string-factory.js';

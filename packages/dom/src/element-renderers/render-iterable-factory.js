@@ -1,28 +1,27 @@
-import { ITERABLE_ITEM_PLACEHOLDER } from '../constants.js';
+import { createIterablePlaceholderFactory } from './create-iterable-placeholder-factory.js';
 
 export const renderIterableFactory = (
-  item,
+  iterable,
   { placeholder, document, render, ...props },
   ...args
 ) => {
-  const fragment = document.createDocumentFragment();
-  const promises = [];
-  for (const itemIterator of item) {
-    const itemPlaceholder = document.createComment(ITERABLE_ITEM_PLACEHOLDER);
-    fragment.append(itemPlaceholder);
-    promises.push(
+  const createIterablePlacholder = createIterablePlaceholderFactory({
+    iterable,
+    placeholder,
+    document,
+  });
+  return Promise.all(
+    Array.from(iterable, (itemIterator, i) =>
       render(
         itemIterator,
         {
           ...props,
           document,
-          placeholder: itemPlaceholder,
+          placeholder: createIterablePlacholder(i),
           render,
         },
         ...args
       )
-    );
-  }
-  placeholder.replaceWith(fragment);
-  return Promise.all(promises);
+    )
+  );
 };

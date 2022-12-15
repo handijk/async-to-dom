@@ -78,6 +78,44 @@ describe('render string attribute', () => {
     });
   });
 
+  test('directive', () => {
+    const nameResult = [Symbol('name result'), Symbol('name result')];
+    const valueResult = [Symbol('value result')];
+    const filteredResult2 = Symbol('filtered result2');
+    const directiveItem = Symbol('directive item');
+    const props = {
+      someProp: 'someValue',
+    };
+    const node = {
+      removeAttribute: vi.fn(),
+    };
+    const attribute = {
+      name: Symbol('attributeName'),
+      value: Symbol('attributeValue'),
+    };
+    const components = Symbol('components');
+    getResult.mockReturnValueOnce(nameResult);
+    getResult.mockReturnValueOnce(valueResult);
+    filterResult.mockReturnValueOnce(null);
+    filterResult.mockReturnValueOnce(filteredResult2);
+    toDirectiveItem.mockReturnValueOnce(directiveItem);
+    renderStringAttribute({ element: node, attribute, components, ...props });
+
+    expect(getResult).toHaveBeenCalledTimes(2);
+    expect(getResult).toHaveBeenNthCalledWith(1, attribute.name, components);
+    expect(getResult).toHaveBeenNthCalledWith(2, attribute.value, components);
+    expect(node.removeAttribute).toHaveBeenCalledTimes(1);
+    expect(node.removeAttribute).toHaveBeenNthCalledWith(1, attribute.name);
+    expect(toDirectiveItem).toHaveBeenCalledWith(null, filteredResult2);
+    expect(render).toHaveBeenCalledTimes(1);
+    expect(render).toHaveBeenCalledWith(directiveItem, {
+      ...props,
+      element: node,
+      lastNamesMap: new Set(),
+      renderers: DIRECTIVE_RENDERERS,
+    });
+  });
+
   test('attribute name', () => {
     const nameResult = [Symbol('name result'), Symbol('name result')];
     const valueResult = [Symbol('value result')];

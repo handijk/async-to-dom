@@ -6,7 +6,7 @@ import { isIterable } from '@async-to-html/render/matchers/is-iterable.js';
 import { isString } from '@async-to-html/render/matchers/is-string.js';
 import { renderPromiseFactory } from '@async-to-html/render/renderers/render-promise-factory.js';
 import { renderFunctionFactory } from '@async-to-html/render/renderers/render-function-factory.js';
-import { renderAsyncIteratorFactory } from './render-async-iterator-factory.js';
+import { renderAsyncIteratorFactory } from '@async-to-html/render/renderers/render-async-iterator-factory.js';
 import { renderEmptyAttributeFactory } from './render-empty-attribute.js';
 import { renderIterableFactory } from './render-iterable-factory.js';
 import { renderStringAttributeFactory } from './render-string-attribute.js';

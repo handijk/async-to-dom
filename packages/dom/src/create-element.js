@@ -10,16 +10,17 @@ export const createElement =
       const element = document.createElement(tag);
       yield element;
       const promise = Promise.all([
-        ...Object.keys(attributes ?? {}).map((key) =>
-          render(attributes[key], {
+        ...Object.keys(attributes ?? {}).map((key) => {
+          element.setAttribute(key, '');
+          return render(attributes[key], {
             ...props,
             args,
             element,
             key,
             document,
             renderers: ATTRIBUTE_RENDERERS,
-          })
-        ),
+          });
+        }),
         ...children.map((child) => {
           const placeholder = document.createComment(SPECIAL_PLACEHOLDER_ITEM);
           element.appendChild(placeholder);

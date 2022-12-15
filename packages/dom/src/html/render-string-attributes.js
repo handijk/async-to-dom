@@ -14,18 +14,20 @@ export const renderStringAttribute = (
   if (nameMatches.length > 1) {
     const nameItems = filterResult(nameMatches);
     element.removeAttribute(attribute.name);
-    return render(
-      attribute.value
-        ? toDirectiveItem(nameItems, filterResult(valueMatches))
-        : nameItems,
-      {
-        ...props,
-        lastNamesMap: new Set(),
-        element,
-        renderers: DIRECTIVE_RENDERERS,
-      },
-      ...args
-    );
+    if (nameItems || attribute.value) {
+      return render(
+        attribute.value
+          ? toDirectiveItem(nameItems, filterResult(valueMatches))
+          : nameItems,
+        {
+          ...props,
+          lastNamesMap: new Set(),
+          element,
+          renderers: DIRECTIVE_RENDERERS,
+        },
+        ...args
+      );
+    }
   } else if (valueMatches.length > 1) {
     element.setAttribute(attribute.name, '');
     return render(

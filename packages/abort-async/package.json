@@ -1,8 +1,11 @@
 {
   "name": "@async-to-html/abort-async",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Abort promises and async iterables",
   "type": "module",
+  "scripts": {
+    "test": "vitest"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/handijk/async-to-html.git"

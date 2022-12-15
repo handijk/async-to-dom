@@ -31,8 +31,15 @@ describe('to directive item', () => {
     expect(combineLatest).toHaveBeenCalledWith(['=', '"', valueIterator, '"'], {
       eager: false,
     });
-    expect((await valueIterator.next()).value).toEqual('');
-    expect((await valueIterator.next()).value).toEqual(valueItems);
+    expect(await valueIterator.next()).toEqual({ done: false, value: '' });
+    expect(await valueIterator.next()).toEqual({
+      done: false,
+      value: valueItems,
+    });
+    expect(await valueIterator.next()).toEqual({
+      done: true,
+      value: undefined,
+    });
     expect(map).toHaveBeenCalledTimes(1);
     const mapper = map.mock.calls[0][0];
     expect(mapper(['henk', 'bert'])).toEqual('henkbert');

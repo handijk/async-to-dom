@@ -20,7 +20,7 @@ export const createAbortablePromise = async ({
     return abortPromise;
   }
   const { result, aborted } = await Promise.race([
-    promise.then((result) => ({ aborted: false, result })),
+    promise.then((value) => ({ aborted: false, result: value })),
     abortPromise,
   ]);
 

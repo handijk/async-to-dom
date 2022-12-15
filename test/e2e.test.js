@@ -65,10 +65,10 @@ describe('e2e', () => {
           });
         }
       }
-      return (...args) =>
-        (...props) => {
+      return (...args2) =>
+        (...props2) => {
           if (htmlString) {
-            const result = htmlString(...args)(...props).then((value) => {
+            const result = htmlString(...args2)(...props2).then((value) => {
               htmlStringElement.innerHTML = value;
               return value;
             });
@@ -79,7 +79,7 @@ describe('e2e', () => {
             }
           }
           if (htmlDom) {
-            const elementIterator = htmlDom(...args)(...props);
+            const elementIterator = htmlDom(...args2)(...props2);
             const result = elementIterator.next().then(({ value }) => {
               htmlDomElement.appendChild(value);
               return elementIterator.next();
@@ -119,10 +119,10 @@ describe('e2e', () => {
           });
         }
       }
-      return (...args) =>
-        (...props) => {
+      return (...args2) =>
+        (...props2) => {
           if (createElementString) {
-            const result = createElementString(...args)(...props).then(
+            const result = createElementString(...args2)(...props2).then(
               (value) => {
                 createElementStringElement.innerHTML = value;
                 return value;
@@ -136,7 +136,7 @@ describe('e2e', () => {
             }
           }
           if (createElementDom) {
-            const elementIterator = createElementDom(...args)(...props);
+            const elementIterator = createElementDom(...args2)(...props2);
             const result = elementIterator.next().then(({ value }) => {
               createElementDomElement.appendChild(value);
               return elementIterator.next();
@@ -364,6 +364,42 @@ describe('e2e', () => {
       compareBoth();
     });
 
+    test('iterable with async values', async () => {
+      const generator = async function* () {
+        await timeout(50);
+        yield 'henk';
+      };
+      const html = await htmlFactory();
+      const createElement = await createElementFactory();
+      const item1 = [timeout(100, 'bert'), ' ', 'en', ' ', generator];
+      html`<div>${item1}</div>`(...args);
+      createElement('div', null, item1)(...args);
+      await timeout();
+      expect(htmlDomElement.innerHTML).toMatchInlineSnapshot(
+        '"<div><!--fragment placeholder--> en <!--fragment placeholder--></div>"'
+      );
+      expect(createElementDomElement.innerHTML).toEqual(
+        htmlDomElement.innerHTML
+      );
+      await timeout(50);
+      expect(htmlDomElement.innerHTML).toMatchInlineSnapshot(
+        '"<div><!--fragment placeholder--> en henk</div>"'
+      );
+      expect(createElementDomElement.innerHTML).toEqual(
+        htmlDomElement.innerHTML
+      );
+      await timeout(100);
+      expect(htmlDomElement.innerHTML).toMatchInlineSnapshot(
+        '"<div>bert en henk</div>"'
+      );
+      expect(createElementDomElement.innerHTML).toEqual(
+        htmlDomElement.innerHTML
+      );
+      compareHtml();
+      compareCreateElement();
+      compareBoth();
+    });
+
     test('empty', async () => {
       const html = await htmlFactory();
       const createElement = await createElementFactory();
@@ -423,6 +459,83 @@ describe('e2e', () => {
       html`<div title="${item1}"></div>`(...args);
       createElement('div', { title: item1 })(...args);
       await timeout();
+      compareHtml();
+      compareCreateElement();
+      compareBoth();
+    });
+
+    test('nested async iterables attribute value', async () => {
+      const html = await htmlFactory();
+      const createElement = await createElementFactory();
+      const item1 = async function* () {
+        yield async function* () {
+          await timeout(100);
+          yield '1 in de eerste';
+          await timeout(100);
+          yield '2 in de eerste';
+          await timeout(100);
+          yield '3 in de eerste';
+        };
+        await timeout(100);
+        yield async function* () {
+          await timeout(100);
+          yield '1 in de tweede';
+          await timeout(100);
+          yield '2 in de tweede';
+          await timeout(100);
+          yield '3 in de tweede';
+        };
+        await timeout(200);
+      };
+      html`<div title="${item1}"></div>`(...args);
+      createElement('div', { title: item1 })(...args);
+      expect(htmlDomElement.innerHTML).toMatchInlineSnapshot('""');
+      expect(createElementDomElement.innerHTML).toEqual(
+        htmlDomElement.innerHTML
+      );
+      await timeout();
+      expect(htmlDomElement.innerHTML).toMatchInlineSnapshot(
+        '"<div title=\\"\\"></div>"'
+      );
+      expect(createElementDomElement.innerHTML).toEqual(
+        htmlDomElement.innerHTML
+      );
+      await timeout(100);
+      expect(htmlDomElement.innerHTML).toMatchInlineSnapshot(
+        '"<div title=\\"1 in de eerste\\"></div>"'
+      );
+      expect(createElementDomElement.innerHTML).toEqual(
+        htmlDomElement.innerHTML
+      );
+      await timeout(100);
+      expect(htmlDomElement.innerHTML).toMatchInlineSnapshot(
+        '"<div title=\\"1 in de tweede\\"></div>"'
+      );
+      expect(createElementDomElement.innerHTML).toEqual(
+        htmlDomElement.innerHTML
+      );
+      await timeout(100);
+      expect(htmlDomElement.innerHTML).toMatchInlineSnapshot(
+        '"<div title=\\"2 in de tweede\\"></div>"'
+      );
+      expect(createElementDomElement.innerHTML).toEqual(
+        htmlDomElement.innerHTML
+      );
+      await timeout(100);
+      expect(htmlDomElement.innerHTML).toMatchInlineSnapshot(
+        '"<div title=\\"3 in de tweede\\"></div>"'
+      );
+      expect(createElementDomElement.innerHTML).toEqual(
+        htmlDomElement.innerHTML
+      );
+      await timeout(100);
+      expect(htmlDomElement.innerHTML).toMatchInlineSnapshot(
+        '"<div title=\\"3 in de tweede\\"></div>"'
+      );
+      expect(createElementDomElement.innerHTML).toEqual(
+        htmlDomElement.innerHTML
+      );
+      await timeout(100);
       compareHtml();
       compareCreateElement();
       compareBoth();
@@ -502,6 +615,15 @@ describe('e2e', () => {
     test('string directive', async () => {
       const html = await htmlFactory();
       const item1 = safeHtml('title="henk en bert"');
+      html`<div ${item1}></div>`(...args);
+      await timeout();
+      // create element supports only string indexes
+      compareHtml();
+    });
+
+    test('null directive', async () => {
+      const html = await htmlFactory();
+      const item1 = null;
       html`<div ${item1}></div>`(...args);
       await timeout();
       // create element supports only string indexes
@@ -701,73 +823,77 @@ describe('e2e', () => {
       html`<div ${item1}></div>`(...args);
     });
 
-    test('complex tree', async () => {
+    test('nested async iterables', async () => {
       const html = await htmlFactory();
       const createElement = await createElementFactory();
-      const item1 = [
-        'bert',
-        ' ',
-        'en',
-        ' ',
-        'henk',
-        ' ',
-        async function* () {
+      const item1 = async function* () {
+        yield async function* () {
           await timeout(100);
-          yield ['garrus', ' ', 'en', ' ', 'barry'];
+          yield '1 in de eerste';
           await timeout(100);
-          yield 'eten';
+          yield '2 in de eerste';
           await timeout(100);
-          yield [
-            async function* () {
-              await timeout(100);
-              yield 'een';
-              await timeout(100);
-              yield 'twee';
-              await timeout(100);
-              yield 'drie';
-            },
-            ' ',
-            async function* () {
-              await timeout(100);
-              yield 'boterham';
-              await timeout(100);
-              yield 'muizen';
-              await timeout(100);
-              yield 'kikkers';
-            },
-          ];
-        },
-        ' ',
-        timeout(100, ['met', ' ', 'hagelslag']),
-      ];
+          yield '3 in de eerste';
+        };
+        await timeout(150);
+        yield async function* () {
+          await timeout(100);
+          yield '1 in de tweede';
+          await timeout(100);
+          yield '2 in de tweede';
+          await timeout(100);
+          yield '3 in de tweede';
+        };
+        await timeout(250);
+      };
       html`<div>${item1}</div>`(...args);
       createElement('div', null, item1)(...args);
-      expect(htmlDomElement.innerHTML).toMatchSnapshot();
+      expect(htmlDomElement.innerHTML).toMatchInlineSnapshot('""');
       expect(createElementDomElement.innerHTML).toEqual(
         htmlDomElement.innerHTML
       );
       await timeout();
-      expect(htmlDomElement.innerHTML).toMatchSnapshot();
+      expect(htmlDomElement.innerHTML).toMatchInlineSnapshot(
+        '"<div><!--placeholder item--></div>"'
+      );
       expect(createElementDomElement.innerHTML).toEqual(
         htmlDomElement.innerHTML
       );
       await timeout(100);
-      expect(htmlDomElement.innerHTML).toMatchSnapshot();
+      expect(htmlDomElement.innerHTML).toMatchInlineSnapshot(
+        '"<div><!--async iterable placeholder before--><!--async iterable placeholder before-->1 in de eerste<!--async iterable placeholder after--><!--async iterable placeholder after--></div>"'
+      );
       expect(createElementDomElement.innerHTML).toEqual(
         htmlDomElement.innerHTML
       );
       await timeout(100);
-      expect(htmlDomElement.innerHTML).toMatchSnapshot();
+      expect(htmlDomElement.innerHTML).toMatchInlineSnapshot(
+        '"<div><!--async iterable placeholder before-->1 in de eerste<!--async iterable placeholder after--></div>"'
+      );
+      expect(createElementDomElement.innerHTML).toEqual(
+        htmlDomElement.innerHTML
+      );
+      await timeout(110);
+      expect(htmlDomElement.innerHTML).toMatchInlineSnapshot(
+        '"<div><!--async iterable placeholder before--><!--async iterable placeholder before-->1 in de tweede<!--async iterable placeholder after--><!--async iterable placeholder after--></div>"'
+      );
       expect(createElementDomElement.innerHTML).toEqual(
         htmlDomElement.innerHTML
       );
       await timeout(100);
-      expect(htmlDomElement.innerHTML).toMatchSnapshot();
+      expect(htmlDomElement.innerHTML).toMatchInlineSnapshot(
+        '"<div><!--async iterable placeholder before--><!--async iterable placeholder before-->2 in de tweede<!--async iterable placeholder after--><!--async iterable placeholder after--></div>"'
+      );
+      expect(createElementDomElement.innerHTML).toEqual(
+        htmlDomElement.innerHTML
+      );
       await timeout(100);
-      expect(htmlDomElement.innerHTML).toMatchSnapshot();
-      await timeout(100);
-      expect(htmlDomElement.innerHTML).toMatchSnapshot();
-      await timeout(100);
+      expect(htmlDomElement.innerHTML).toMatchInlineSnapshot(
+        '"<div>3 in de tweede</div>"'
+      );
+      expect(createElementDomElement.innerHTML).toEqual(
+        htmlDomElement.innerHTML
+      );
       compareHtml();
       compareCreateElement();
       compareBoth();

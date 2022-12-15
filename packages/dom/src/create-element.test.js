@@ -40,6 +40,7 @@ describe('dom createElement', () => {
   test('tag without attributes and without children', async () => {
     const element = {
       appendChild: vi.fn(),
+      setAttribute: vi.fn(),
     };
     const placeholder = Symbol();
     document.createElement.mockReturnValueOnce(element);
@@ -52,12 +53,14 @@ describe('dom createElement', () => {
     expect(render).not.toHaveBeenCalled();
     expect(document.createComment).not.toHaveBeenCalled();
     expect(element.appendChild).not.toHaveBeenCalled();
+    expect(element.setAttribute).not.toHaveBeenCalled();
     expect(render).not.toHaveBeenCalled();
   });
 
   test('tag with attributes and without children', async () => {
     const element = {
       appendChild: vi.fn(),
+      setAttribute: vi.fn(),
     };
     const placeholder = Symbol();
     document.createElement.mockReturnValueOnce(element);
@@ -87,6 +90,9 @@ describe('dom createElement', () => {
     });
     expect(document.createComment).not.toHaveBeenCalled();
     expect(element.appendChild).not.toHaveBeenCalled();
+    expect(element.setAttribute).toHaveBeenCalledTimes(2);
+    expect(element.setAttribute).toHaveBeenNthCalledWith(1, 'title', '');
+    expect(element.setAttribute).toHaveBeenNthCalledWith(2, 'data-test', '');
   });
 
   test('tag without attributes and with 1 child', async () => {
@@ -174,6 +180,7 @@ describe('dom createElement', () => {
   test('tag with attributes and with 3 children', async () => {
     const element = {
       appendChild: vi.fn(),
+      setAttribute: vi.fn(),
     };
     const child1 = Symbol();
     const child2 = Symbol();
@@ -237,5 +244,8 @@ describe('dom createElement', () => {
       renderers: ELEMENT_RENDERERS,
       document,
     });
+    expect(element.setAttribute).toHaveBeenCalledTimes(2);
+    expect(element.setAttribute).toHaveBeenNthCalledWith(1, 'title', '');
+    expect(element.setAttribute).toHaveBeenNthCalledWith(2, 'data-test', '');
   });
 });

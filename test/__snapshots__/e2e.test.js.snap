@@ -24,24 +24,6 @@ exports[`e2e > test: html, createElement, string render, dom render > comment no
 
 exports[`e2e > test: html, createElement, string render, dom render > comment node 2`] = `"<div><!--bert en henk--></div>"`;
 
-exports[`e2e > test: html, createElement, string render, dom render > complex tree 1`] = `""`;
-
-exports[`e2e > test: html, createElement, string render, dom render > complex tree 2`] = `"<div>bert en henk <!--async iterable placeholder before--><!--async iterable placeholder after--> <!--promise placeholder--></div>"`;
-
-exports[`e2e > test: html, createElement, string render, dom render > complex tree 3`] = `"<div>bert en henk <!--async iterable placeholder before-->garrus en barry<!--async iterable placeholder after--> met hagelslag</div>"`;
-
-exports[`e2e > test: html, createElement, string render, dom render > complex tree 4`] = `"<div>bert en henk <!--async iterable placeholder before-->eten<!--async iterable placeholder after--> met hagelslag</div>"`;
-
-exports[`e2e > test: html, createElement, string render, dom render > complex tree 5`] = `"<div>bert en henk <!--async iterable placeholder before--><!--async iterable placeholder before--><!--async iterable placeholder after--> <!--async iterable placeholder before--><!--async iterable placeholder after--><!--async iterable placeholder after--> met hagelslag</div>"`;
-
-exports[`e2e > test: html, createElement, string render, dom render > complex tree 6`] = `"<div>bert en henk <!--async iterable placeholder before--><!--async iterable placeholder before-->een<!--async iterable placeholder after--> <!--async iterable placeholder before-->boterham<!--async iterable placeholder after--><!--async iterable placeholder after--> met hagelslag</div>"`;
-
-exports[`e2e > test: html, createElement, string render, dom render > complex tree 7`] = `"<div>bert en henk <!--async iterable placeholder before--><!--async iterable placeholder before-->twee<!--async iterable placeholder after--> <!--async iterable placeholder before-->muizen<!--async iterable placeholder after--><!--async iterable placeholder after--> met hagelslag</div>"`;
-
-exports[`e2e > test: html, createElement, string render, dom render > complex tree 8`] = `"<div>bert en henk drie kikkers met hagelslag</div>"`;
-
-exports[`e2e > test: html, createElement, string render, dom render > complex tree 9`] = `"<div>bert en henk drie kikkers met hagelslag</div>"`;
-
 exports[`e2e > test: html, createElement, string render, dom render > createElement dom child 1`] = `"<div><span></span></div>"`;
 
 exports[`e2e > test: html, createElement, string render, dom render > createElement dom child 2`] = `"<div><span></span></div>"`;
@@ -78,6 +60,10 @@ exports[`e2e > test: html, createElement, string render, dom render > iterable 1
 
 exports[`e2e > test: html, createElement, string render, dom render > iterable 2`] = `"<div>bert en henk</div>"`;
 
+exports[`e2e > test: html, createElement, string render, dom render > iterable with async values 4`] = `"<div>bert en henk</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > iterable with async values 5`] = `"<div>bert en henk</div>"`;
+
 exports[`e2e > test: html, createElement, string render, dom render > method 1`] = `"<div>henk en bert</div>"`;
 
 exports[`e2e > test: html, createElement, string render, dom render > method 2`] = `"<div>henk en bert</div>"`;
@@ -103,6 +89,16 @@ exports[`e2e > test: html, createElement, string render, dom render > multiple s
 exports[`e2e > test: html, createElement, string render, dom render > nested array attribute value 1`] = `"<div title=\\"henk en bert\\"></div>"`;
 
 exports[`e2e > test: html, createElement, string render, dom render > nested array attribute value 2`] = `"<div title=\\"henk en bert\\"></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > nested async iterables 8`] = `"<div>3 in de tweede</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > nested async iterables 9`] = `"<div>3 in de tweede</div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > nested async iterables attribute value 8`] = `"<div title=\\"3 in de tweede\\"></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > nested async iterables attribute value 9`] = `"<div title=\\"3 in de tweede\\"></div>"`;
+
+exports[`e2e > test: html, createElement, string render, dom render > null directive 1`] = `"<div></div>"`;
 
 exports[`e2e > test: html, createElement, string render, dom render > promise 1`] = `"<div>henk en bert</div>"`;
 

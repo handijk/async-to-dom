@@ -14,7 +14,7 @@
   ],
   "parserOptions": {
     "sourceType": "module",
-    "ecmaVersion": 2021
+    "ecmaVersion": 13
   },
   "settings": {
     "import/resolver": {
@@ -23,6 +23,8 @@
     }
   },
   "rules": {
+    "prefer-const": "error",
+    "no-shadow": "error",
     "require-await": "error",
     "require-yield": "error",
     "no-return-await": "error",
