@@ -11,6 +11,7 @@ describe('createAbortController', () => {
     const signal = {
       aborted: false,
       addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
     };
     const abortController = createAbortController({
       signal,
@@ -25,6 +26,7 @@ describe('createAbortController', () => {
     });
     expect(abortController.signal.aborted).toEqual(true);
     expect(abortController.signal.reason).toEqual(reason);
+    expect(signal.removeEventListener).toBeCalledTimes(1);
   });
 
   test('output signal is aborted when the input signal was already aborted', () => {
@@ -33,11 +35,13 @@ describe('createAbortController', () => {
       aborted: true,
       reason,
       addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
     };
     const abortController = createAbortController({
       signal,
     });
     expect(abortController.signal.aborted).toEqual(true);
     expect(abortController.signal.reason).toEqual(reason);
+    expect(signal.removeEventListener).not.toBeCalled();
   });
 });

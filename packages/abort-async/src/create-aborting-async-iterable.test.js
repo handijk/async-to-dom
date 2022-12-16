@@ -18,20 +18,24 @@ vi.mock('./return-until-done.js', () => ({
 
 describe('createAbortingAsyncIterable', () => {
   afterEach(() => {
-    vi.clearAllMocks();
+    vi.resetAllMocks();
   });
 
   test('runs until the end', async () => {
     const abortableAsyncIterable = Symbol('abortable async iterable');
     const signal = Symbol('signal');
-    const abortSignal1 = Symbol('abort signal 1');
-    const abortFn1 = vi.fn();
-    const abortSignal2 = Symbol('abort signal 2');
-    const abortFn2 = vi.fn();
-    const abortSignal3 = Symbol('abort signal 3');
-    const abortFn3 = vi.fn();
-    const abortSignal4 = Symbol('abort signal 4');
-    const abortFn4 = vi.fn();
+    const abortSignal1 = { aborted: false };
+    const abortFn1 = vi.fn(() => {
+      abortSignal1.aborted = true;
+    });
+    const abortSignal2 = { aborted: false };
+    const abortFn2 = vi.fn(() => {
+      abortSignal2.aborted = true;
+    });
+    const abortSignal3 = { aborted: false };
+    const abortFn3 = vi.fn(() => {
+      abortSignal3.aborted = true;
+    });
     const result1 = Symbol('promise 1');
     const result2 = Symbol('promise 2');
     const result3 = Symbol('promise 3');
@@ -93,32 +97,38 @@ describe('createAbortingAsyncIterable', () => {
       done: false,
       value: 'c',
     });
-    createAbortController.mockReturnValueOnce({
-      signal: abortSignal4,
-      abort: abortFn4,
-    });
     await expect(asyncIterable.next()).resolves.toEqual({
       done: true,
       value: result4,
     });
+    expect(createAbortController).toBeCalledTimes(3);
     expect(returnUntilDone).toBeCalledTimes(1);
-    expect(abortFn1).not.toBeCalled();
-    expect(abortFn2).not.toBeCalled();
-    expect(abortFn3).not.toBeCalled();
-    expect(abortFn4).not.toBeCalled();
+    expect(abortFn1).toBeCalledTimes(1);
+    expect(abortFn2).toBeCalledTimes(1);
+    expect(abortFn3).toBeCalledTimes(1);
   });
 
   test('skips the second yield because it got aborted', async () => {
     const abortableAsyncIterable = Symbol('abortable async iterable');
     const signal = Symbol('signal');
-    const abortSignal1 = Symbol('abort signal 1');
-    const abortFn1 = vi.fn();
-    const abortSignal2 = Symbol('abort signal 2');
-    const abortFn2 = vi.fn();
-    const abortSignal3 = Symbol('abort signal 3');
-    const abortFn3 = vi.fn();
-    const abortSignal4 = Symbol('abort signal 4');
-    const abortFn4 = vi.fn();
+    const abortSignal1 = {
+      aborted: false,
+    };
+    const abortFn1 = vi.fn(() => {
+      abortSignal1.aborted = true;
+    });
+    const abortSignal2 = {
+      aborted: false,
+    };
+    const abortFn2 = vi.fn(() => {
+      abortSignal2.aborted = true;
+    });
+    const abortSignal3 = {
+      aborted: false,
+    };
+    const abortFn3 = vi.fn(() => {
+      abortSignal3.aborted = true;
+    });
     const result1 = Symbol('promise 1');
     const result2 = Symbol('promise 2');
     const result3 = Symbol('promise 3');
@@ -182,18 +192,14 @@ describe('createAbortingAsyncIterable', () => {
       value: 'c',
     });
     mapFn.mockReturnValueOnce('d');
-    createAbortController.mockReturnValueOnce({
-      signal: abortSignal4,
-      abort: abortFn4,
-    });
     await expect(asyncIterable.next()).resolves.toEqual({
       done: true,
       value: result4,
     });
+    expect(createAbortController).toBeCalledTimes(3);
     expect(returnUntilDone).toBeCalledTimes(1);
     expect(abortFn1).toBeCalledTimes(1);
-    expect(abortFn2).not.toBeCalled();
-    expect(abortFn3).not.toBeCalled();
-    expect(abortFn4).not.toBeCalled();
+    expect(abortFn2).toBeCalledTimes(1);
+    expect(abortFn3).toBeCalledTimes(1);
   });
 });

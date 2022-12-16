@@ -17,12 +17,18 @@ export const createAbortablePromise = async ({
     }
   }
   if (!promise) {
-    return abortPromise;
+    return abortPromise.then((result) => {
+      signal.removeEventListener('abort', abort);
+      return result;
+    });
   }
   const { result, aborted } = await Promise.race([
     promise.then((value) => ({ aborted: false, result: value })),
     abortPromise,
   ]);
+  if (signal) {
+    signal.removeEventListener('abort', abort);
+  }
 
   return { result, aborted };
 };

@@ -1,6 +1,6 @@
 {
   "name": "@async-to-html/dom",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Turn every (async or sync) value into a dom tree",
   "type": "module",
   "scripts": {

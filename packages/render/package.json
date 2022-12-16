@@ -1,6 +1,6 @@
 {
   "name": "@async-to-html/render",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Generic render method, renderers, matchers and html safe methods",
   "type": "module",
   "scripts": {

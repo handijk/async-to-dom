@@ -11,6 +11,7 @@ describe('createAbortablePromise', () => {
     const signal = {
       aborted: false,
       addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
     };
     const promise = new Promise((resolve) => {
       setTimeout(() => resolve(resolveWith), 100);
@@ -24,6 +25,7 @@ describe('createAbortablePromise', () => {
       aborted: false,
       result: resolveWith,
     });
+    expect(signal.removeEventListener).toBeCalledTimes(1);
   });
 
   test('aborted signal after promise resolves results in non aborted promise', async () => {
@@ -32,6 +34,7 @@ describe('createAbortablePromise', () => {
     const signal = {
       aborted: false,
       addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
     };
     const promise = new Promise((resolve) => {
       setTimeout(() => resolve(resolveWith), 50);
@@ -53,6 +56,7 @@ describe('createAbortablePromise', () => {
       aborted: false,
       result: resolveWith,
     });
+    expect(signal.removeEventListener).toBeCalledTimes(1);
   });
 
   test('aborted signal before promise resolves results in aborted promise', async () => {
@@ -61,6 +65,7 @@ describe('createAbortablePromise', () => {
     const signal = {
       aborted: false,
       addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
     };
     const promise = new Promise((resolve) => {
       setTimeout(() => resolve(resolveWith), 100);
@@ -82,6 +87,7 @@ describe('createAbortablePromise', () => {
       aborted: true,
       result: reason,
     });
+    expect(signal.removeEventListener).toBeCalledTimes(1);
   });
 
   test('already aborted signal results in aborted promise', async () => {
@@ -91,6 +97,7 @@ describe('createAbortablePromise', () => {
       aborted: true,
       reason,
       addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
     };
     const promise = new Promise((resolve) => {
       setTimeout(() => resolve(resolveWith), 100);
@@ -104,6 +111,7 @@ describe('createAbortablePromise', () => {
       aborted: true,
       result: reason,
     });
+    expect(signal.removeEventListener).toBeCalledTimes(1);
   });
 
   test('no signal results in non aborted promise', async () => {
@@ -126,6 +134,7 @@ describe('createAbortablePromise', () => {
     const signal = {
       aborted: false,
       addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
     };
     const abortablePromise = createAbortablePromise({
       signal,
@@ -143,6 +152,7 @@ describe('createAbortablePromise', () => {
       aborted: true,
       result: reason,
     });
+    expect(signal.removeEventListener).toBeCalledTimes(1);
   });
 
   test('no promise and already aborted results in aborted promise', async () => {
@@ -151,6 +161,7 @@ describe('createAbortablePromise', () => {
       aborted: true,
       reason,
       addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
     };
     const abortablePromise = createAbortablePromise({
       signal,
@@ -160,6 +171,7 @@ describe('createAbortablePromise', () => {
       aborted: true,
       result: reason,
     });
+    expect(signal.removeEventListener).toBeCalledTimes(1);
   });
 
   test('no signal and no promise results in never resolving promise', async () => {
