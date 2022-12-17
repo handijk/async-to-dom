@@ -1,6 +1,6 @@
 {
   "name": "@async-to-html/abort-async",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Abort promises and async iterables",
   "type": "module",
   "scripts": {

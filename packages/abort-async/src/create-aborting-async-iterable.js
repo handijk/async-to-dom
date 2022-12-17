@@ -46,7 +46,7 @@ export const createAbortingAsyncIterable = async function* ({
       }
     }
   } finally {
-    if (!abortController.signal.aborted) {
+    if (abortController?.signal && !abortController.signal.aborted) {
       abortController.abort();
     }
     await returnUntilDone(asyncIterator);
