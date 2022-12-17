@@ -25,6 +25,6 @@
   },
   "homepage": "https://github.com/handijk/async-to-html#readme",
   "dependencies": {
-    "@async-to-html/abort-async": "^0.0.5"
+    "@async-to-html/abort-async": "^0.0.6"
   }
 }

@@ -19,7 +19,7 @@ describe('render', () => {
   const args = [props, Symbol('arg2')];
 
   afterEach(() => {
-    vi.clearAllMocks();
+    vi.resetAllMocks();
   });
 
   test('should call only the first renderer when it succeeds', async () => {

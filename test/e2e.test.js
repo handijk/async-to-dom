@@ -256,6 +256,7 @@ describe('e2e', () => {
       const html = await htmlFactory();
       const createElement = await createElementFactory();
       const item1 = safeHtml('<span>henk en bert</span>');
+      console.log(item1);
       html`<div>${item1}</div>`(...args);
       createElement('div', null, item1)(...args);
       await timeout();
