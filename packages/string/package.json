@@ -1,6 +1,6 @@
 {
   "name": "@async-to-html/string",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Turn every (async or sync) value into a html string",
   "type": "module",
   "scripts": {
@@ -29,7 +29,7 @@
     "html-entities": "^2.3.3"
   },
   "dependencies": {
-    "@async-to-html/render": "^0.0.8",
-    "@async-to-html/abort-async": "^0.0.8"
+    "@async-to-html/render": "^0.0.9",
+    "@async-to-html/abort-async": "^0.0.9"
   }
 }
