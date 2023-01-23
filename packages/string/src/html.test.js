@@ -32,15 +32,18 @@ describe('html', () => {
     const result = Symbol('result');
     safeHtml.mockReturnValueOnce(result);
     render.mockReturnValueOnce('item');
-    const elementPromise = html`<div title="${item}"></div>`(...args);
+    const elementPromise = html`<div title="${item}"></div>`.render(...args);
     const element = await elementPromise;
     expect(render).toBeCalledTimes(1);
-    expect(render).toHaveBeenCalledWith(item, {
-      safe: true,
-      args,
-      renderers: STRING_RENDERERS,
-      encode,
-    });
+    expect(render).toHaveBeenCalledWith(
+      item,
+      {
+        safe: true,
+        renderers: STRING_RENDERERS,
+        encode,
+      },
+      x
+    );
     expect(element).toBe(result);
     expect(safeHtml).toBeCalledTimes(1);
     expect(safeHtml.mock.calls[0][0]).toMatchInlineSnapshot(

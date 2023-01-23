@@ -23,7 +23,8 @@ vi.mock('@async-to-html/render/render.js', () => ({
 
 describe('dom createElement', () => {
   const arg = Symbol();
-  const props = {};
+  const prop = Symbol();
+  const props = { prop };
   const args = [props, arg];
   const document = {
     createElement: vi.fn(),
@@ -45,7 +46,7 @@ describe('dom createElement', () => {
     const placeholder = Symbol();
     document.createElement.mockReturnValueOnce(element);
     document.createComment.mockReturnValueOnce(placeholder);
-    const elementIterator = createElementDom('div')(...args);
+    const elementIterator = createElementDom('div').render(...args);
     expect((await elementIterator.next()).value).toBe(element);
     await elementIterator.next();
     expect(document.createElement).toHaveBeenCalledTimes(1);
@@ -68,26 +69,36 @@ describe('dom createElement', () => {
     const elementIterator = createElementDom('div', {
       title: 'henk',
       'data-test': 'bert',
-    })(...args);
+    }).render(...args);
     expect((await elementIterator.next()).value).toBe(element);
     await elementIterator.next();
     expect(document.createElement).toHaveBeenCalledTimes(1);
     expect(document.createElement).toHaveBeenCalledWith('div');
     expect(render).toHaveBeenCalledTimes(2);
-    expect(render).toHaveBeenNthCalledWith(1, 'henk', {
-      element,
-      key: 'title',
-      args,
-      renderers: ATTRIBUTE_RENDERERS,
-      document,
-    });
-    expect(render).toHaveBeenNthCalledWith(2, 'bert', {
-      element,
-      key: 'data-test',
-      args,
-      renderers: ATTRIBUTE_RENDERERS,
-      document,
-    });
+    expect(render).toHaveBeenNthCalledWith(
+      1,
+      'henk',
+      {
+        prop,
+        element,
+        key: 'title',
+        renderers: ATTRIBUTE_RENDERERS,
+        document,
+      },
+      args[1]
+    );
+    expect(render).toHaveBeenNthCalledWith(
+      2,
+      'bert',
+      {
+        prop,
+        element,
+        key: 'data-test',
+        renderers: ATTRIBUTE_RENDERERS,
+        document,
+      },
+      args[1]
+    );
     expect(document.createComment).not.toHaveBeenCalled();
     expect(element.appendChild).not.toHaveBeenCalled();
     expect(element.setAttribute).toHaveBeenCalledTimes(2);
@@ -103,7 +114,9 @@ describe('dom createElement', () => {
     const placeholder = Symbol('placeholder');
     document.createElement.mockReturnValueOnce(element);
     document.createComment.mockReturnValueOnce(placeholder);
-    const elementIterator = createElementDom('div', null, child1)(...args);
+    const elementIterator = createElementDom('div', null, child1).render(
+      ...args
+    );
     expect((await elementIterator.next()).value).toBe(element);
     await elementIterator.next();
     expect(document.createElement).toHaveBeenCalledTimes(1);
@@ -115,12 +128,16 @@ describe('dom createElement', () => {
     expect(element.appendChild).toHaveBeenCalledTimes(1);
     expect(element.appendChild).toHaveBeenCalledWith(placeholder);
     expect(render).toHaveBeenCalledTimes(1);
-    expect(render).toHaveBeenCalledWith(child1, {
-      placeholder,
-      args,
-      renderers: ELEMENT_RENDERERS,
-      document,
-    });
+    expect(render).toHaveBeenCalledWith(
+      child1,
+      {
+        prop,
+        placeholder,
+        renderers: ELEMENT_RENDERERS,
+        document,
+      },
+      args[1]
+    );
   });
 
   test('tag without attributes and with 3 children', async () => {
@@ -143,7 +160,7 @@ describe('dom createElement', () => {
       child1,
       child2,
       child3
-    )(...args);
+    ).render(...args);
     expect((await elementIterator.next()).value).toBe(element);
     await elementIterator.next();
     expect(document.createElement).toHaveBeenCalledTimes(1);
@@ -157,24 +174,39 @@ describe('dom createElement', () => {
     expect(element.appendChild).toHaveBeenNthCalledWith(2, placeholder2);
     expect(element.appendChild).toHaveBeenNthCalledWith(3, placeholder3);
     expect(render).toHaveBeenCalledTimes(3);
-    expect(render).toHaveBeenNthCalledWith(1, child1, {
-      placeholder: placeholder1,
-      args,
-      renderers: ELEMENT_RENDERERS,
-      document,
-    });
-    expect(render).toHaveBeenNthCalledWith(2, child2, {
-      placeholder: placeholder2,
-      args,
-      renderers: ELEMENT_RENDERERS,
-      document,
-    });
-    expect(render).toHaveBeenNthCalledWith(3, child3, {
-      placeholder: placeholder3,
-      args,
-      renderers: ELEMENT_RENDERERS,
-      document,
-    });
+    expect(render).toHaveBeenNthCalledWith(
+      1,
+      child1,
+      {
+        prop,
+        placeholder: placeholder1,
+        renderers: ELEMENT_RENDERERS,
+        document,
+      },
+      args[1]
+    );
+    expect(render).toHaveBeenNthCalledWith(
+      2,
+      child2,
+      {
+        prop,
+        placeholder: placeholder2,
+        renderers: ELEMENT_RENDERERS,
+        document,
+      },
+      args[1]
+    );
+    expect(render).toHaveBeenNthCalledWith(
+      3,
+      child3,
+      {
+        prop,
+        placeholder: placeholder3,
+        renderers: ELEMENT_RENDERERS,
+        document,
+      },
+      args[1]
+    );
   });
 
   test('tag with attributes and with 3 children', async () => {
@@ -198,26 +230,36 @@ describe('dom createElement', () => {
       child1,
       child2,
       child3
-    )(...args);
+    ).render(...args);
     expect((await elementIterator.next()).value).toBe(element);
     await elementIterator.next();
     expect(document.createElement).toHaveBeenCalledTimes(1);
     expect(document.createElement).toHaveBeenCalledWith('div');
     expect(render).toHaveBeenCalledTimes(5);
-    expect(render).toHaveBeenNthCalledWith(1, 'henk', {
-      element,
-      key: 'title',
-      args,
-      renderers: ATTRIBUTE_RENDERERS,
-      document,
-    });
-    expect(render).toHaveBeenNthCalledWith(2, 'bert', {
-      element,
-      key: 'data-test',
-      args,
-      renderers: ATTRIBUTE_RENDERERS,
-      document,
-    });
+    expect(render).toHaveBeenNthCalledWith(
+      1,
+      'henk',
+      {
+        prop,
+        element,
+        key: 'title',
+        renderers: ATTRIBUTE_RENDERERS,
+        document,
+      },
+      args[1]
+    );
+    expect(render).toHaveBeenNthCalledWith(
+      2,
+      'bert',
+      {
+        prop,
+        element,
+        key: 'data-test',
+        renderers: ATTRIBUTE_RENDERERS,
+        document,
+      },
+      args[1]
+    );
     expect(document.createComment).toHaveBeenCalledTimes(3);
     expect(document.createComment).toHaveBeenCalledWith(
       SPECIAL_PLACEHOLDER_ITEM
@@ -226,24 +268,39 @@ describe('dom createElement', () => {
     expect(element.appendChild).toHaveBeenNthCalledWith(1, placeholder1);
     expect(element.appendChild).toHaveBeenNthCalledWith(2, placeholder2);
     expect(element.appendChild).toHaveBeenNthCalledWith(3, placeholder3);
-    expect(render).toHaveBeenNthCalledWith(3, child1, {
-      placeholder: placeholder1,
-      args,
-      renderers: ELEMENT_RENDERERS,
-      document,
-    });
-    expect(render).toHaveBeenNthCalledWith(4, child2, {
-      placeholder: placeholder2,
-      args,
-      renderers: ELEMENT_RENDERERS,
-      document,
-    });
-    expect(render).toHaveBeenNthCalledWith(5, child3, {
-      placeholder: placeholder3,
-      args,
-      renderers: ELEMENT_RENDERERS,
-      document,
-    });
+    expect(render).toHaveBeenNthCalledWith(
+      3,
+      child1,
+      {
+        prop,
+        placeholder: placeholder1,
+        renderers: ELEMENT_RENDERERS,
+        document,
+      },
+      args[1]
+    );
+    expect(render).toHaveBeenNthCalledWith(
+      4,
+      child2,
+      {
+        prop,
+        placeholder: placeholder2,
+        renderers: ELEMENT_RENDERERS,
+        document,
+      },
+      args[1]
+    );
+    expect(render).toHaveBeenNthCalledWith(
+      5,
+      child3,
+      {
+        prop,
+        placeholder: placeholder3,
+        renderers: ELEMENT_RENDERERS,
+        document,
+      },
+      args[1]
+    );
     expect(element.setAttribute).toHaveBeenCalledTimes(2);
     expect(element.setAttribute).toHaveBeenNthCalledWith(1, 'title', '');
     expect(element.setAttribute).toHaveBeenNthCalledWith(2, 'data-test', '');

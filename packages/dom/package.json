@@ -1,6 +1,6 @@
 {
   "name": "@async-to-html/dom",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Turn every (async or sync) value into a dom tree",
   "type": "module",
   "scripts": {
@@ -26,10 +26,10 @@
   },
   "homepage": "https://github.com/handijk/async-to-html#readme",
   "peerDependencies": {
-    "create-async-generator": "^1.1.0"
+    "create-async-generator": "^1.2.3"
   },
   "dependencies": {
-    "@async-to-html/render": "^0.0.7",
-    "@async-to-html/abort-async": "^0.0.7"
+    "@async-to-html/render": "^0.0.8",
+    "@async-to-html/abort-async": "^0.0.8"
   }
 }

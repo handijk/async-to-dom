@@ -34,9 +34,6 @@ describe('render string element', () => {
     const document = {
       createComment: vi.fn(),
     };
-    const props = {
-      someProp: 'someValue',
-    };
     const node = {
       nodeValue: Symbol('nodeValue'),
       replaceWith: vi.fn(),
@@ -45,7 +42,7 @@ describe('render string element', () => {
     getResult.mockReturnValueOnce(result);
     filterResult.mockReturnValueOnce(filteredResult);
     document.createComment.mockReturnValueOnce(placeholder);
-    renderStringElement({ document, element: node, components, ...props });
+    renderStringElement({ document, element: node, components });
     expect(document.createComment).toHaveBeenCalledTimes(1);
     expect(document.createComment).toHaveBeenCalledWith(
       SPECIAL_PLACEHOLDER_ITEM
@@ -56,7 +53,6 @@ describe('render string element', () => {
     expect(node.replaceWith).toHaveBeenCalledWith(placeholder);
     expect(render).toHaveBeenCalledTimes(1);
     expect(render).toHaveBeenCalledWith(filteredResult, {
-      ...props,
       placeholder,
       renderers: ELEMENT_RENDERERS,
       document,

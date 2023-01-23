@@ -23,15 +23,18 @@ describe('html', () => {
   };
   const signal = Symbol();
   const x = Symbol();
-  const args = [x];
+  const props = {
+    prop: x,
+    signal,
+  };
+  const args = [props];
 
   test('string attribute value', async () => {
     const html = htmlFactory({
-      signal,
       document,
     });
     const item = 'henk';
-    const elementIterator = html`<div title="${item}"></div>`(...args);
+    const elementIterator = html`<div title="${item}"></div>`.render(...args);
     const element = (await elementIterator.next()).value;
     await elementIterator.next();
     expect(createString).toHaveBeenCalledTimes(1);
@@ -40,13 +43,14 @@ describe('html', () => {
       item
     );
     expect(renderStringChildren).toHaveBeenCalledTimes(1);
-    expect(renderStringChildren).toHaveBeenCalledWith({
-      document,
-      components: [item],
-      args,
-      element: content,
-      signal,
-    });
+    expect(renderStringChildren).toHaveBeenCalledWith(
+      {
+        document,
+        components: [item],
+        element: content,
+      },
+      props
+    );
     expect(element).toBe(content);
   });
 });

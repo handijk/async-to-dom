@@ -42,9 +42,6 @@ describe('render string attribute', () => {
     const filteredResult = Symbol('filtered result');
     const filteredResult2 = Symbol('filtered result2');
     const directiveItem = Symbol('directive item');
-    const props = {
-      someProp: 'someValue',
-    };
     const node = {
       removeAttribute: vi.fn(),
     };
@@ -58,7 +55,7 @@ describe('render string attribute', () => {
     filterResult.mockReturnValueOnce(filteredResult);
     filterResult.mockReturnValueOnce(filteredResult2);
     toDirectiveItem.mockReturnValueOnce(directiveItem);
-    renderStringAttribute({ element: node, attribute, components, ...props });
+    renderStringAttribute({ element: node, attribute, components });
 
     expect(getResult).toHaveBeenCalledTimes(2);
     expect(getResult).toHaveBeenNthCalledWith(1, attribute.name, components);
@@ -71,7 +68,6 @@ describe('render string attribute', () => {
     );
     expect(render).toHaveBeenCalledTimes(1);
     expect(render).toHaveBeenCalledWith(directiveItem, {
-      ...props,
       element: node,
       lastNamesMap: new Set(),
       renderers: DIRECTIVE_RENDERERS,
@@ -83,9 +79,6 @@ describe('render string attribute', () => {
     const valueResult = [Symbol('value result')];
     const filteredResult2 = Symbol('filtered result2');
     const directiveItem = Symbol('directive item');
-    const props = {
-      someProp: 'someValue',
-    };
     const node = {
       removeAttribute: vi.fn(),
     };
@@ -99,7 +92,7 @@ describe('render string attribute', () => {
     filterResult.mockReturnValueOnce(null);
     filterResult.mockReturnValueOnce(filteredResult2);
     toDirectiveItem.mockReturnValueOnce(directiveItem);
-    renderStringAttribute({ element: node, attribute, components, ...props });
+    renderStringAttribute({ element: node, attribute, components });
 
     expect(getResult).toHaveBeenCalledTimes(2);
     expect(getResult).toHaveBeenNthCalledWith(1, attribute.name, components);
@@ -109,7 +102,6 @@ describe('render string attribute', () => {
     expect(toDirectiveItem).toHaveBeenCalledWith(null, filteredResult2);
     expect(render).toHaveBeenCalledTimes(1);
     expect(render).toHaveBeenCalledWith(directiveItem, {
-      ...props,
       element: node,
       lastNamesMap: new Set(),
       renderers: DIRECTIVE_RENDERERS,
@@ -121,9 +113,6 @@ describe('render string attribute', () => {
     const valueResult = [Symbol('value result')];
     const filteredResult = Symbol('filtered result');
     const directiveItem = Symbol('directive item');
-    const props = {
-      someProp: 'someValue',
-    };
     const node = {
       removeAttribute: vi.fn(),
     };
@@ -136,7 +125,7 @@ describe('render string attribute', () => {
     getResult.mockReturnValueOnce(valueResult);
     filterResult.mockReturnValueOnce(filteredResult);
     toDirectiveItem.mockReturnValueOnce(directiveItem);
-    renderStringAttribute({ element: node, attribute, components, ...props });
+    renderStringAttribute({ element: node, attribute, components });
 
     expect(getResult).toHaveBeenCalledTimes(2);
     expect(getResult).toHaveBeenNthCalledWith(1, attribute.name, components);
@@ -145,7 +134,6 @@ describe('render string attribute', () => {
     expect(node.removeAttribute).toHaveBeenNthCalledWith(1, attribute.name);
     expect(render).toHaveBeenCalledTimes(1);
     expect(render).toHaveBeenCalledWith(filteredResult, {
-      ...props,
       element: node,
       lastNamesMap: new Set(),
       renderers: DIRECTIVE_RENDERERS,
@@ -157,9 +145,6 @@ describe('render string attribute', () => {
     const valueResult = [Symbol('value result'), Symbol('value result')];
     const filteredResult = Symbol('filtered result');
     const directiveItem = Symbol('directive item');
-    const props = {
-      someProp: 'someValue',
-    };
     const node = {
       setAttribute: vi.fn(),
     };
@@ -177,7 +162,6 @@ describe('render string attribute', () => {
       element: node,
       attribute,
       components,
-      ...props,
     });
 
     expect(getResult).toHaveBeenCalledTimes(2);
@@ -187,7 +171,6 @@ describe('render string attribute', () => {
     expect(node.setAttribute).toHaveBeenNthCalledWith(1, attribute.name, '');
     expect(render).toHaveBeenCalledTimes(1);
     expect(render).toHaveBeenCalledWith(filteredResult, {
-      ...props,
       document,
       element: node,
       key: attribute.name,

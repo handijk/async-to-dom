@@ -6,6 +6,7 @@ export const createAbortableAsyncIterable = async function* ({
   signal = null,
 }) {
   const asyncIterator = asyncIterable[Symbol.asyncIterator]();
+  let allDone = false;
   try {
     while (true) {
       const { result, aborted } = await createAbortablePromise({
@@ -13,6 +14,7 @@ export const createAbortableAsyncIterable = async function* ({
         promise: asyncIterator.next(),
       });
       if (aborted) {
+        allDone = true;
         return returnUntilDone(asyncIterator);
       }
       if (result.done) {
@@ -21,6 +23,8 @@ export const createAbortableAsyncIterable = async function* ({
       yield result.value;
     }
   } finally {
-    await returnUntilDone(asyncIterator);
+    if (!allDone) {
+      await returnUntilDone(asyncIterator);
+    }
   }
 };

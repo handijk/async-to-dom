@@ -1,0 +1,3 @@
+// Vitest Snapshot v1
+
+exports[`createElement > createElement can be aborted 1`] = `"<div><span><span>on time</span></span></div>"`;

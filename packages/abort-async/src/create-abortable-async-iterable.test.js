@@ -154,7 +154,7 @@ describe('createAbortableAsyncIterable', () => {
       done: true,
       value: 'x',
     });
-    expect(returnUntilDone).toHaveBeenCalledTimes(2);
+    expect(returnUntilDone).toHaveBeenCalledTimes(1);
   });
 
   test('return is called after two yields', async () => {
@@ -354,6 +354,6 @@ describe('createAbortableAsyncIterable', () => {
       promise: promise3,
       signal,
     });
-    expect(returnUntilDone).toHaveBeenCalledTimes(2);
+    expect(returnUntilDone).toHaveBeenCalledTimes(1);
   });
 });

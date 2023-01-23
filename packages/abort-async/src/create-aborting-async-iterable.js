@@ -10,6 +10,7 @@ export const createAbortingAsyncIterable = async function* ({
 }) {
   let asyncIterator = null;
   let abortController = null;
+  let allDone = false;
   try {
     let i = 0;
 
@@ -39,7 +40,8 @@ export const createAbortingAsyncIterable = async function* ({
         })),
         nextPromise.then((result) => ({ nextResult: result, next: true })),
       ]);
-      if (next && (!nextResult.done || abortOnReturn)) {
+      allDone = nextResult?.done;
+      if (next && (!nextResult?.done || abortOnReturn)) {
         abortController.abort();
       } else {
         yield returnPromise;
@@ -49,6 +51,8 @@ export const createAbortingAsyncIterable = async function* ({
     if (abortController?.signal && !abortController.signal.aborted) {
       abortController.abort();
     }
-    await returnUntilDone(asyncIterator);
+    if (!allDone) {
+      await returnUntilDone(asyncIterator);
+    }
   }
 };

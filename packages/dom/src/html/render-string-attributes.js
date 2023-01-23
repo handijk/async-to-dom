@@ -6,7 +6,8 @@ import { ATTRIBUTE_RENDERERS } from '../attribute-renderers/get-attribute-render
 import { render } from '@async-to-html/render/render.js';
 
 export const renderStringAttribute = (
-  { element, attribute, components, ...props },
+  { document, element, attribute, components },
+  props,
   ...args
 ) => {
   const nameMatches = getResult(attribute.name, components);
@@ -24,6 +25,7 @@ export const renderStringAttribute = (
           lastNamesMap: new Set(),
           element,
           renderers: DIRECTIVE_RENDERERS,
+          document,
         },
         ...args
       );
@@ -37,6 +39,7 @@ export const renderStringAttribute = (
         key: attribute.name,
         element,
         renderers: ATTRIBUTE_RENDERERS,
+        document,
       },
       ...args
     );

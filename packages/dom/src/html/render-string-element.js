@@ -5,7 +5,8 @@ import { filterResult } from './filter-result.js';
 import { getResult } from './get-result.js';
 
 export const renderStringElement = (
-  { document, element, components, ...props },
+  { document, element, components },
+  props,
   ...args
 ) => {
   const placeholder = document.createComment(SPECIAL_PLACEHOLDER_ITEM);

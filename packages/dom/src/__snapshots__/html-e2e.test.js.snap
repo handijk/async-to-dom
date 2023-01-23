@@ -1,0 +1,8 @@
+// Vitest Snapshot v1
+
+exports[`html > html can be aborted 1`] = `
+"<div>
+      <span></span>
+      <span>on time</span>
+    </div>"
+`;

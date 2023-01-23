@@ -3,7 +3,7 @@ import { renderStringElement } from './render-string-element.js';
 
 export const renderStringChildren = ({ element, ...props }, ...args) =>
   Promise.all(
-    Array.from(element.childNodes).map((childNode) => {
+    Array.from(element.childNodes ?? []).map((childNode) => {
       switch (childNode.nodeType) {
         case Node.ELEMENT_NODE:
           return Promise.all([

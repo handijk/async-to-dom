@@ -6,6 +6,7 @@ export const createAsyncIterablePlaceholder = ({
 }) => {
   const remove = () => {
     let currentElement = before.nextSibling;
+    // TODO: what if it never had a nextSibling, if it was not added yet
     while (currentElement !== after) {
       const removeElement = currentElement;
       currentElement = currentElement.nextSibling;

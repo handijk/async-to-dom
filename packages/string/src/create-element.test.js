@@ -23,7 +23,8 @@ vi.mock('@async-to-html/render/render.js', () => ({
 
 describe('string createElement', () => {
   const arg = Symbol();
-  const props = {};
+  const prop = Symbol();
+  const props = { prop };
   const args = [props, arg];
 
   afterEach(() => {
@@ -34,7 +35,7 @@ describe('string createElement', () => {
     const createElement = createElementFactory();
     const element = Symbol('element');
     safeHtml.mockReturnValueOnce(element);
-    const elementPromise = createElement('div')(...args);
+    const elementPromise = createElement('div').render(...args);
     expect(await elementPromise).toBe(element);
     expect(render).not.toBeCalled();
     expect(safeHtml).toBeCalledTimes(1);
@@ -52,21 +53,31 @@ describe('string createElement', () => {
     const elementPromise = createElement('div', {
       title: 'henk',
       'data-test': 'bert',
-    })(...args);
+    }).render(...args);
     expect(await elementPromise).toBe(element);
     expect(render).toBeCalledTimes(2);
-    expect(render).toHaveBeenNthCalledWith(1, 'henk', {
-      args,
-      safe: false,
-      renderers: STRING_RENDERERS,
-      encode,
-    });
-    expect(render).toHaveBeenNthCalledWith(2, 'bert', {
-      args,
-      safe: false,
-      renderers: STRING_RENDERERS,
-      encode,
-    });
+    expect(render).toHaveBeenNthCalledWith(
+      1,
+      'henk',
+      {
+        prop,
+        safe: false,
+        renderers: STRING_RENDERERS,
+        encode,
+      },
+      args[1]
+    );
+    expect(render).toHaveBeenNthCalledWith(
+      2,
+      'bert',
+      {
+        prop,
+        safe: false,
+        renderers: STRING_RENDERERS,
+        encode,
+      },
+      args[1]
+    );
     expect(safeHtml).toBeCalledTimes(1);
     expect(safeHtml.mock.calls[0][0]).toMatchInlineSnapshot(
       '"<div title=\\"result1\\" data-test=\\"result2\\"></div>"'
@@ -80,15 +91,20 @@ describe('string createElement', () => {
     const result1 = 'result1';
     safeHtml.mockReturnValueOnce(element);
     render.mockReturnValueOnce(result1);
-    const elementPromise = createElement('div', null, child1)(...args);
+    const elementPromise = createElement('div', null, child1).render(...args);
     expect(await elementPromise).toBe(element);
     expect(render).toBeCalledTimes(1);
-    expect(render).toHaveBeenNthCalledWith(1, child1, {
-      args,
-      safe: true,
-      renderers: STRING_RENDERERS,
-      encode,
-    });
+    expect(render).toHaveBeenNthCalledWith(
+      1,
+      child1,
+      {
+        prop,
+        safe: true,
+        renderers: STRING_RENDERERS,
+        encode,
+      },
+      args[1]
+    );
     expect(safeHtml).toBeCalledTimes(1);
     expect(safeHtml.mock.calls[0][0]).toMatchInlineSnapshot(
       `"<div >result1</div>"`
@@ -114,27 +130,42 @@ describe('string createElement', () => {
       child1,
       child2,
       child3
-    )(...args);
+    ).render(...args);
     expect(await elementPromise).toBe(element);
     expect(render).toBeCalledTimes(3);
-    expect(render).toHaveBeenNthCalledWith(1, child1, {
-      args,
-      safe: true,
-      renderers: STRING_RENDERERS,
-      encode,
-    });
-    expect(render).toHaveBeenNthCalledWith(2, child2, {
-      args,
-      safe: true,
-      renderers: STRING_RENDERERS,
-      encode,
-    });
-    expect(render).toHaveBeenNthCalledWith(3, child3, {
-      args,
-      safe: true,
-      renderers: STRING_RENDERERS,
-      encode,
-    });
+    expect(render).toHaveBeenNthCalledWith(
+      1,
+      child1,
+      {
+        prop,
+        safe: true,
+        renderers: STRING_RENDERERS,
+        encode,
+      },
+      args[1]
+    );
+    expect(render).toHaveBeenNthCalledWith(
+      2,
+      child2,
+      {
+        prop,
+        safe: true,
+        renderers: STRING_RENDERERS,
+        encode,
+      },
+      args[1]
+    );
+    expect(render).toHaveBeenNthCalledWith(
+      3,
+      child3,
+      {
+        prop,
+        safe: true,
+        renderers: STRING_RENDERERS,
+        encode,
+      },
+      args[1]
+    );
     expect(safeHtml).toBeCalledTimes(1);
     expect(safeHtml.mock.calls[0][0]).toMatchInlineSnapshot(
       `"<div >result1result2result3</div>"`
@@ -160,39 +191,64 @@ describe('string createElement', () => {
       child1,
       child2,
       child3
-    )(...args);
+    ).render(...args);
     expect(await elementPromise).toBe(element);
     expect(render).toBeCalledTimes(5);
-    expect(render).toHaveBeenNthCalledWith(1, 'henk', {
-      args,
-      safe: false,
-      renderers: STRING_RENDERERS,
-      encode,
-    });
-    expect(render).toHaveBeenNthCalledWith(2, 'bert', {
-      args,
-      safe: false,
-      renderers: STRING_RENDERERS,
-      encode,
-    });
-    expect(render).toHaveBeenNthCalledWith(3, child1, {
-      args,
-      safe: true,
-      renderers: STRING_RENDERERS,
-      encode,
-    });
-    expect(render).toHaveBeenNthCalledWith(4, child2, {
-      args,
-      safe: true,
-      renderers: STRING_RENDERERS,
-      encode,
-    });
-    expect(render).toHaveBeenNthCalledWith(5, child3, {
-      args,
-      safe: true,
-      renderers: STRING_RENDERERS,
-      encode,
-    });
+    expect(render).toHaveBeenNthCalledWith(
+      1,
+      'henk',
+      {
+        prop,
+        safe: false,
+        renderers: STRING_RENDERERS,
+        encode,
+      },
+      args[1]
+    );
+    expect(render).toHaveBeenNthCalledWith(
+      2,
+      'bert',
+      {
+        prop,
+        safe: false,
+        renderers: STRING_RENDERERS,
+        encode,
+      },
+      args[1]
+    );
+    expect(render).toHaveBeenNthCalledWith(
+      3,
+      child1,
+      {
+        prop,
+        safe: true,
+        renderers: STRING_RENDERERS,
+        encode,
+      },
+      args[1]
+    );
+    expect(render).toHaveBeenNthCalledWith(
+      4,
+      child2,
+      {
+        prop,
+        safe: true,
+        renderers: STRING_RENDERERS,
+        encode,
+      },
+      args[1]
+    );
+    expect(render).toHaveBeenNthCalledWith(
+      5,
+      child3,
+      {
+        prop,
+        safe: true,
+        renderers: STRING_RENDERERS,
+        encode,
+      },
+      args[1]
+    );
     expect(safeHtml).toBeCalledTimes(1);
     expect(safeHtml.mock.calls[0][0]).toMatchInlineSnapshot(
       '"<div title=\\"result1\\" data-test=\\"result2\\">result3</div>"'

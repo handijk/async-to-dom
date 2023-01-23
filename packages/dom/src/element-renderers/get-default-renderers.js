@@ -1,3 +1,5 @@
+import { isRenderable } from '@async-to-html/render/matchers/is-renderable.js';
+import { renderRenderable } from '@async-to-html/render/renderers/render-renderable.js';
 import { isAsyncIterator } from '@async-to-html/render/matchers/is-async-iterator.js';
 import { isElement } from '@async-to-html/render/matchers/is-element.js';
 import { isEmpty } from '@async-to-html/render/matchers/is-empty.js';
@@ -16,6 +18,7 @@ import { renderIterableFactory } from './render-iterable-factory.js';
 import { renderStringFactory } from './render-string-factory.js';
 
 export const ELEMENT_RENDERERS = [
+  [isRenderable, renderRenderable],
   [isAsyncIterator, renderAsyncIteratorFactory],
   [isPromise, renderPromiseFactory],
   [isFunction, renderFunctionFactory],

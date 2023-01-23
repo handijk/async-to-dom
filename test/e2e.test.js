@@ -16,8 +16,13 @@ describe('e2e', () => {
   let createElementDomElement;
   let createElementStringElement;
   const x = Symbol();
+  const y = Symbol();
   const props = {};
-  const args = [props, x];
+  const restInnerArgs = [x];
+  const innerArgs = [props, ...restInnerArgs];
+  const outerProps = { args: innerArgs };
+  const restArgs = [y];
+  const args = [outerProps, ...restArgs];
   const ENABLE_HTML = 1;
   const ENABLE_CREATE_ELEMENT = 1;
   const ENABLE_STRING_RENDER = 1;
@@ -68,10 +73,12 @@ describe('e2e', () => {
       return (...args2) =>
         (...props2) => {
           if (htmlString) {
-            const result = htmlString(...args2)(...props2).then((value) => {
-              htmlStringElement.innerHTML = value;
-              return value;
-            });
+            const result = htmlString(...args2)
+              .render(...props2)
+              .then((value) => {
+                htmlStringElement.innerHTML = value;
+                return value;
+              });
             if (stringError) {
               expect(result).rejects.toEqual(stringError);
             } else {
@@ -79,7 +86,7 @@ describe('e2e', () => {
             }
           }
           if (htmlDom) {
-            const elementIterator = htmlDom(...args2)(...props2);
+            const elementIterator = htmlDom(...args2).render(...props2);
             const result = elementIterator.next().then(({ value }) => {
               htmlDomElement.appendChild(value);
               return elementIterator.next();
@@ -122,12 +129,12 @@ describe('e2e', () => {
       return (...args2) =>
         (...props2) => {
           if (createElementString) {
-            const result = createElementString(...args2)(...props2).then(
-              (value) => {
+            const result = createElementString(...args2)
+              .render(...props2)
+              .then((value) => {
                 createElementStringElement.innerHTML = value;
                 return value;
-              }
-            );
+              });
 
             if (stringError) {
               expect(result).rejects.toEqual(stringError);
@@ -136,7 +143,9 @@ describe('e2e', () => {
             }
           }
           if (createElementDom) {
-            const elementIterator = createElementDom(...args2)(...props2);
+            const elementIterator = createElementDom(...args2).render(
+              ...props2
+            );
             const result = elementIterator.next().then(({ value }) => {
               createElementDomElement.appendChild(value);
               return elementIterator.next();
@@ -290,7 +299,8 @@ describe('e2e', () => {
       expect(item1).toBeCalledTimes(testItems);
       let i = testItems;
       while (i--) {
-        expect(item1.mock.calls[i][0]).toBe(...args);
+        expect(item1.mock.calls[i][0]).toBe(innerArgs[0]);
+        expect(item1.mock.calls[i][1]).toBe(innerArgs[1]);
       }
     });
 
@@ -721,11 +731,11 @@ describe('e2e', () => {
 
     test('aborted signal', async () => {
       const signal = AbortSignal.timeout(10);
-      const html = await htmlFactory({ signal });
-      const createElement = await createElementFactory({ signal });
+      const html = await htmlFactory();
+      const createElement = await createElementFactory();
       const item1 = timeout(20, 'henk en bert');
-      html`<div>${item1}</div>`(...args);
-      createElement('div', null, item1)(...args);
+      html`<div>${item1}</div>`({ ...outerProps, signal }, ...restArgs);
+      createElement('div', null, item1)({ ...outerProps, signal }, ...restArgs);
       await timeout(30);
       compareHtml();
       compareCreateElement();
@@ -739,10 +749,10 @@ describe('e2e', () => {
         yield 'henk en bert';
       }
       const signal = AbortSignal.timeout(1000);
-      const html = await htmlFactory({ signal });
-      const createElement = await createElementFactory({ signal });
-      html`<div>${item1}</div>`(...args);
-      createElement('div', null, item1)(...args);
+      const html = await htmlFactory();
+      const createElement = await createElementFactory();
+      html`<div>${item1}</div>`({ ...outerProps, signal }, ...restArgs);
+      createElement('div', null, item1)({ ...outerProps, signal }, ...restArgs);
       await timeout(3000);
       compareHtml();
       compareCreateElement();
@@ -781,10 +791,10 @@ describe('e2e', () => {
     test('aborted signal', async () => {
       const item1 = timeout(300, 'henk en bert');
       const signal = AbortSignal.timeout(20);
-      const html = await htmlFactory({ signal });
-      const createElement = await createElementFactory({ signal });
-      html`<div>${item1}</div>`(...args);
-      createElement('div', null, item1)(...args);
+      const html = await htmlFactory();
+      const createElement = await createElementFactory();
+      html`<div>${item1}</div>`({ ...outerProps, signal }, ...args);
+      createElement('div', null, item1)({ ...outerProps, signal }, ...args);
       await new Promise((resolve) => setTimeout(resolve, 500));
       compareHtml();
       compareCreateElement();
